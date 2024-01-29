@@ -2,7 +2,7 @@ version: '3'
 
 services:
   wordpress:
-    image: wordpress:latest
+    image: wordpress
     ports:
       - "8000:80"
     environment:
@@ -29,16 +29,17 @@ services:
       - backend
 
   phpmyadmin:
-    image: phpmyadmin/phpmyadmin:latest
+    image: phpmyadmin
     ports:
-      - "8080:80"
+      - "8001:80"
     environment:
-      PMA_ARBITRARY: 1
-      PMA_HOST: mysql
-      PMA_USER: root
-      PMA_PASSWORD: root_password
+#       PMA_ARBITRARY: 1
+       PMA_HOST: mysql
+       PMA_USER: root
+       PMA_PASSWORD: root_password
     networks:
       - frontend
+      - backend
 
 networks:
   frontend:
