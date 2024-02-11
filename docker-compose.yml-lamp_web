@@ -1,0 +1,44 @@
+version: '3'
+
+services:
+
+  # Apache y PHP
+  pagina_web:
+    build: .
+    container_name: mi_web
+    ports:
+      - "81:80"
+    volumes:
+      - ./html:/var/www/html
+
+  # MySQL
+  mysql:
+    image: mysql:latest
+    container_name: mysql_base_datos
+    environment:
+      MYSQL_ROOT_PASSWORD: marc
+      MYSQL_DATABASE: lamp_db
+      MYSQL_USER: lamp_user
+      MYSQL_PASSWORD: lamp_password
+    ports:
+      - "3307:3306"
+    volumes:
+      - ./mysql:/var/lib/mysql
+
+  # phpMyAdmin
+  phpmyadmin:
+    image: phpmyadmin/phpmyadmin
+    container_name: phpmyadmin
+    environment:
+      PMA_HOST: mysql
+      PMA_PORT: 3306
+      MYSQL_ROOT_PASSWORD: marc
+    ports:
+      - "82:80"
+
+  # Adminer
+  adminer:
+    image: adminer
+    container_name: adminer
+    ports:
+      - "83:8080"
